@@ -37,15 +37,13 @@ $saveOrder = $listOrder == 'a.ordering';
 
 if (!empty($saveOrder))
 {
-	$saveOrderingUrl = 'index.php?option=com_awforms&task=registros.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+	$saveOrderingUrl = 'index.php?option=com_awforms&task=formularios.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
 
-$dados = json_decode($this->getDados())->fields;
-//usort($dados);
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_awforms&view=registros'); ?>" method="post"
+<form action="<?php echo Route::_('index.php?option=com_awforms&view=formularios'); ?>" method="post"
 	  name="adminForm" id="adminForm">
 	<div class="row">
 		<div class="col-md-12">
@@ -53,10 +51,10 @@ $dados = json_decode($this->getDados())->fields;
 			<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 
 				<div class="clearfix"></div>
-				<table class="table table-striped" id="registroList">
+				<table class="table table-striped" id="formularioList">
 					<thead>
 					<tr>
-						<th scope="col" class="w-1 text-center">
+						<th class="w-1 text-center" style="width:1%">
 							<input type="checkbox" autocomplete="off" class="form-check-input" name="checkall-toggle" value=""
 								   title="<?php echo Text::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)"/>
 						</th>
@@ -70,29 +68,18 @@ $dados = json_decode($this->getDados())->fields;
 					<?php endif; ?>
 
 						
-					<th  scope="col" class="w-1 text-center">
+					<th  scope="col" class="w-1 text-center" style="width:1%">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
 					</th>
-						
-					
-					<?php $k = 0;?>
-					<?php foreach($dados as $v):?>
-						<?php if(!preg_match('/\[[^\]]*\]/', $v->attrs->name) and !$v->config->hideLabel): ?>
-						<th  scope="col" class="<?= $k === 1 ? '' : 'w-10';?>">
-						<?= $k;?>
-								<?= $v->config->hideLabel;?>
-							<?php echo JHtml::_('searchtools.sort', $v->config->label, 'a.'.$v->attrs->name, $listDirn, $listOrder); ?>
-						
-						</th>
-					<?php endif;?>
-					<?php $k++;?>
-					<?php endforeach; ?>
+							
+					<th scope="col" class="w-3 d-none d-lg-table-cell" style="width:100%" >
 
-					<th scope="col" class="w-3 d-none d-lg-table-cell" >
-						<?php echo HTMLHelper::_('searchtools.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
-					</th>
+						<?php echo HTMLHelper::_('searchtools.sort',  'Título', 'a.title', $listDirn, $listOrder); ?>					</th>
+						
+					<th scope="col" class="w-3 d-none d-lg-table-cell" style="width:1%" >
+
+						<?php echo HTMLHelper::_('searchtools.sort',  'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>					</th>
 					</tr>
-
 					</thead>
 					<tfoot>
 					<tr>
@@ -144,21 +131,22 @@ $dados = json_decode($this->getDados())->fields;
 
 							
 							<td class="text-center">
-								<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'registros.', $canChange, 'cb'); ?>
+								<?php echo HTMLHelper::_('jgrid.published', $item->state, $i, 'formularios.', $canChange, 'cb'); ?>
 							</td>
 							
-					
-							<?php foreach($dados as $v):?>
-								<?php if(!preg_match('/\[[^\]]*\]/', $v->attrs->name) and !$v->config->hideLabel): ?>
-								<td>
-									<?php echo $item->{$v->attrs->name}; ?>
-								</td>
-							<?php endif; ?>
-							<?php endforeach; ?>
-							<td class="w-5">
+							
+							<td class="d-none d-lg-table-cell">
+							<a href="<?php echo JRoute::_('index.php?option=com_awforms&view=registros&table='.$item->db); ?>">
+							<?php echo $item->title; ?>
+							</a>
+
+							</td>
+
+							<td class="d-none d-lg-table-cell">
 							<?php echo $item->id; ?>
 
 							</td>
+
 
 						</tr>
 					<?php endforeach; ?>
