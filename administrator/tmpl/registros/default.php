@@ -78,8 +78,7 @@ $dados = json_decode($this->getDados())->fields;
 					<?php $k = 0;?>
 					<?php foreach($dados as $v):?>
 						<?php if(!preg_match('/\[[^\]]*\]/', $v->attrs->name) and !$v->config->hideLabel): ?>
-						<th  scope="col" class="<?= $k === 1 ? '' : 'w-10';?>">
-						<?= $k;?>
+						<th  scope="col" class="<?= $k === 0 ? '' : 'w-10';?>">
 								<?= $v->config->hideLabel;?>
 							<?php echo JHtml::_('searchtools.sort', $v->config->label, 'a.'.$v->attrs->name, $listDirn, $listOrder); ?>
 						
