@@ -45,6 +45,15 @@ $dados = json_decode($this->getDados())->fields;
 //usort($dados);
 ?>
 
+<script>
+	jQuery(function($){
+		$('[aria-label="Componentes"]').parents('ul').addClass('child-open')
+		$('[aria-label="Componentes"]').parent('li').addClass('mm-active').addClass('open')
+		$('[aria-label="Componentes"]').parent('li').find('ul.collapse-level-1').addClass('mm-show')
+		$('[aria-label="Componentes"]').parent('li').find('[href="index.php?option=com_awforms"]').parent('li').addClass('mm-active').find('ul').addClass('mm-show')
+	})
+</script>
+
 <form action="<?php echo Route::_('index.php?option=com_awforms&view=registros'); ?>" method="post"
 	  name="adminForm" id="adminForm">
 	<div class="row">

@@ -74,20 +74,28 @@ class HtmlView extends BaseHtmlView
 		$state = $this->get('State');
 		$canDo = AwformsHelper::getActions();
 
-		ToolbarHelper::title(Text::_('COM_AWFORMS_TITLE_REGISTROS'), "generic");
+		//Nomo do formulário
+		ToolbarHelper::title(self::getTitle(), "generic");
 
 		$toolbar = Toolbar::getInstance('toolbar');
 
 		// Check if the form exists before showing the add/edit buttons
 		$formPath = JPATH_COMPONENT_ADMINISTRATOR . '/src/View/Registros';
 
-		if (file_exists($formPath))
+		/*if (file_exists($formPath))
 		{
 			if ($canDo->get('core.create'))
 			{
 				$toolbar->addNew('registro.add');
 			}
-		}
+		}*/
+
+		//Botão de exportar dados.
+		$toolbar->standardButton('exportar')
+			->text('Exportar Dados')
+			->icon('fas fa-download')
+			->task('registros.exportar_para_csv')
+			->listCheck(false);
 
 		if ($canDo->get('core.edit.state'))
 		{
@@ -97,8 +105,6 @@ class HtmlView extends BaseHtmlView
 				->icon('fas fa-ellipsis-h')
 				->buttonClass('btn btn-action')
 				->listCheck(true);
-			
-				ToolBarHelper::custom('registros.exportar_para_csv', 'fas fa-download exportarAwDados', '', 'Exportar Dados', false,false);
 
 			$childBar = $dropdown->getChildToolbar();
 
@@ -117,11 +123,11 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 			}
 
-			$childBar->standardButton('duplicate')
+			/*$childBar->standardButton('duplicate')
 				->text('JTOOLBAR_DUPLICATE')
 				->icon('fas fa-copy')
 				->task('registros.duplicate')
-				->listCheck(true);
+				->listCheck(true);*/
 
 			if (isset($this->items[0]->checked_out))
 			{

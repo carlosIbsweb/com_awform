@@ -73,5 +73,6 @@ class AwformsHelper
 
 		return $result;
 	}
+
 }
 

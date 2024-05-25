@@ -88,13 +88,13 @@ class HtmlView extends BaseHtmlView
 		// Check if the form exists before showing the add/edit buttons
 		$formPath = JPATH_COMPONENT_ADMINISTRATOR . '/src/View/Formularios';
 
-		if (file_exists($formPath))
+		/*if (file_exists($formPath))
 		{
 			if ($canDo->get('core.create'))
 			{
 				$toolbar->addNew('formulario.add');
 			}
-		}
+		}*/
 
 		if ($canDo->get('core.edit.state'))
 		{
@@ -122,11 +122,11 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 			}
 
-			$childBar->standardButton('duplicate')
+			/*$childBar->standardButton('duplicate')
 				->text('JTOOLBAR_DUPLICATE')
 				->icon('fas fa-copy')
 				->task('formularios.duplicate')
-				->listCheck(true);
+				->listCheck(true);*/
 
 			if (isset($this->items[0]->checked_out))
 			{
